@@ -5,8 +5,11 @@ type Data = {
   name: string;
 };
 
-export default (req: NextApiRequest, res: NextApiResponse<Data>): void => {
+export default async (
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+): Promise<void> => {
   const { text } = req.query;
-  const result = generate({ text });
+  const result = await generate({ text });
   res.status(200).json({ result });
 };
