@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import generate from '../../utils/generate';
 
 type Data = {
-  name: string;
+  result: string;
 };
 
 export default async (
