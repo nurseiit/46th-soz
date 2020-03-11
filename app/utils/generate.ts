@@ -7,46 +7,27 @@ const modelURL = 'file://../model/saved_model/lstm_model_js/model.json';
 const loadModel = async () => tf.loadLayersModel(modelURL);
 
 // Generate text using a next-char-prediction model
-const generateText = (
-  model,
-  textData,
-  sentenceIndicesOriginal,
-  length,
-  temperature
-) => {
-  const sampleLen = model.inputs[0].shape[1];
-  const charSetSize = model.inputs[0].shape[2];
+const generateText = (model, textData, seed, length, temperature) => {
+  let inputEval = tf.tensor1d(textData.textToIndices(seed));
+  inputEval = tf.expandDims(inputEval, 0);
 
-  console.log(`len: ${sampleLen}, size: ${charSetSize}.`);
-
-  // Avoid overwriting the original input.
-  let sentenceIndices = sentenceIndicesOriginal.slice();
-
+  model.resetStates();
   let generated = '';
   while (generated.length < length) {
-    // Encode the current input sequence as a one-hot Tensor.
-    const inputBuffer = new tf.TensorBuffer([1, sampleLen, charSetSize]);
-
-    // Make the one-hot encoding of the seeding sentence.
-    for (let i = 0; i < sampleLen; i += 1) {
-      inputBuffer.set(1, 0, i, sentenceIndices[i]);
-    }
-    const input = inputBuffer.toTensor();
-
     // Call model.predict() to get the probability values of the next
     // character.
-    const output = model.predict(input);
+    let output = model.predict(inputEval);
+    output = tf.squeeze(output);
 
     // Sample randomly based on the probability values.
-    const winnerIndex = sample(tf.squeeze(output), temperature);
+    const winnerIndex = sample(output, temperature);
     const winnerChar = textData.getFromCharSet(winnerIndex);
 
     generated += winnerChar;
-    sentenceIndices = sentenceIndices.slice(1);
-    sentenceIndices.push(winnerIndex);
+
+    inputEval = tf.expandDims(tf.tensor1d([winnerIndex]), 0);
 
     // Memory cleanups.
-    input.dispose();
     output.dispose();
   }
   return generated;
@@ -66,24 +47,11 @@ const generate = async ({ text }: Props): Promise<string> => {
   console.log(`${charSetSize} unique characters`);
 
   const model = await loadModel();
-  const input = tf.input({ shape: [sampleLen, charSetSize] });
-  // const output = tf.input({ shape: [charSetSize] });
-  model.build(input);
   model.summary();
-  return 'kek';
-  /*
   // Get a seed text from the text data object.
-  const [seed, seedIndices] = textData.getRandomSlice();
-  const generatedText = await generateText(
-    model,
-    textData,
-    seedIndices,
-    300,
-    0.7
-  );
+  const generatedText = await generateText(model, textData, text, 300, 0.7);
   console.log(`Generated text: ${generatedText}.`);
   return generatedText;
-   */
 };
 
 export default generate;
