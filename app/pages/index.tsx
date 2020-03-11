@@ -21,10 +21,9 @@ const Index: NextPage = () => {
 
   const onGenerate = async (): Promise<void> => {
     setIsLoading(true);
-    await new Promise(resolve => {
-      setTimeout(resolve, 2000);
-    });
-    setTextGenerated('Hello');
+    const resp = await fetch(`/api/generate?text=${value}`);
+    const { result } = await resp.json();
+    setTextGenerated(result);
     setIsLoading(false);
   };
 
