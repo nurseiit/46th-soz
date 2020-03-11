@@ -10,7 +10,6 @@ export default async (
   res: NextApiResponse<Data>
 ): Promise<void> => {
   const { text } = req.query;
-  const stringText = text as string;
-  const result = await generate({ text: stringText });
+  const result = await generate({ text });
   res.status(200).json({ result });
 };

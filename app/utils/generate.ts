@@ -7,7 +7,7 @@ const modelPath = 'file://../model/saved_model/lstm_model_js/model.json';
 const loadModel = async () => tf.loadLayersModel(modelPath);
 
 // Generate text using a next-char-prediction model
-const generateText = (model, textData, seed, length, temperature) => {
+const generateText = (model, textData, seed, length, temperature): string => {
   let inputEval = tf.tensor1d(textData.textToIndices(seed));
   inputEval = tf.expandDims(inputEval, 0);
 
@@ -34,7 +34,9 @@ const generateText = (model, textData, seed, length, temperature) => {
 };
 
 type Props = {
-  text: string;
+  text: string | string[];
+  length?: number;
+  temperature?: number;
 };
 
 const generate = async ({
@@ -47,7 +49,7 @@ const generate = async ({
   const generatedText = await generateText(
     model,
     textData,
-    text,
+    text as string,
     length,
     temperature
   );
