@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p $PORT",
     "export": "rm -rf .next out && next build && next export",
     "lint": "eslint --fix . --ext .ts,.tsx"
   },
