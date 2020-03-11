@@ -2,7 +2,7 @@ import * as tf from '@tensorflow/tfjs-node';
 import sample from './sample';
 import getTextData from './data';
 
-const modelPath = 'file://../model/saved_model/lstm_model_js/model.json';
+const modelPath = 'file://models/lstm_model_js/model.json';
 
 const loadModel = async () => tf.loadLayersModel(modelPath);
 
