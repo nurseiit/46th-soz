@@ -2,9 +2,9 @@ import * as tf from '@tensorflow/tfjs-node';
 import sample from './sample';
 import getTextData from './data';
 
-const modelURL = 'file://../model/saved_model/lstm_model_js/model.json';
+const modelPath = 'file://../model/saved_model/lstm_model_js/model.json';
 
-const loadModel = async () => tf.loadLayersModel(modelURL);
+const loadModel = async () => tf.loadLayersModel(modelPath);
 
 // Generate text using a next-char-prediction model
 const generateText = (model, textData, seed, length, temperature) => {
@@ -30,27 +30,27 @@ const generateText = (model, textData, seed, length, temperature) => {
     // Memory cleanups.
     output.dispose();
   }
-  return generated;
+  return seed + generated;
 };
 
 type Props = {
   text: string;
 };
 
-const generate = async ({ text }: Props): Promise<string> => {
+const generate = async ({
+  text,
+  length = 500,
+  temperature = 0.1
+}: Props): Promise<string> => {
   const textData = getTextData();
-
-  const sampleLen = textData.sampleLen();
-  const charSetSize = textData.charSetSize();
-
-  console.log(`Length of text: ${textData.textLen()} characters`);
-  console.log(`${charSetSize} unique characters`);
-
   const model = await loadModel();
-  model.summary();
-  // Get a seed text from the text data object.
-  const generatedText = await generateText(model, textData, text, 300, 0.7);
-  console.log(`Generated text: ${generatedText}.`);
+  const generatedText = await generateText(
+    model,
+    textData,
+    text,
+    length,
+    temperature
+  );
   return generatedText;
 };
 
