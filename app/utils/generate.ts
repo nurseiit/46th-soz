@@ -4,7 +4,8 @@ import getTextData from './data';
 
 const modelPath = 'file://models/lstm_model_js/model.json';
 
-const loadModel = async () => tf.loadLayersModel(modelPath);
+const loadModel = async (): Promise<tf.LayersModel> =>
+  tf.loadLayersModel(modelPath);
 
 // Generate text using a next-char-prediction model
 const generateText = (model, textData, seed, length, temperature): string => {

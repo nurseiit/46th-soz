@@ -27,7 +27,7 @@ const Index: NextPage = () => {
     setIsLoading(false);
   };
 
-  const handleInputChange = e => {
+  const handleInputChange = (e): void => {
     const re = new RegExp(/^[ЁёӘәІіҢңҒғҮүҰұҚқҺһА-я ]*$/);
     const inputValue = e.target.value;
     setIsInvalid(inputValue === '' ? false : !re.test(inputValue));
