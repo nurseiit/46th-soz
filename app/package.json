@@ -12,7 +12,7 @@
     "build": "next build",
     "start": "next start -p $PORT",
     "export": "rm -rf .next out && next build && next export",
-    "lint": "eslint --fix . --ext .ts,.tsx"
+    "lint": "tsc --noEmit && eslint --fix . --ext js.,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.5.2",
@@ -48,7 +48,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsc --noEmit && lint-staged"
     }
   },
   "lint-staged": {
