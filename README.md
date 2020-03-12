@@ -1,2 +1,2 @@
 # 46th-soz
-Abai's 46th word (Qara Søz) by AI.
+✍️ Abai's 46th word (Qara Søz) by AI.
