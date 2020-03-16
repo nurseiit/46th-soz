@@ -47,6 +47,7 @@ const Index: NextPage = () => {
         variantColor="teal"
         variant="outline"
         isLoading={isLoading}
+        isDisabled={isInvalid || value === ''}
         loadingText="Generating"
         onClick={onGenerate}
       >
