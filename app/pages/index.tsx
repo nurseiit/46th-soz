@@ -21,7 +21,12 @@ const Index: NextPage = () => {
 
   const onGenerate = async (): Promise<void> => {
     setIsLoading(true);
-    const resp = await fetch(`/api/generate?text=${value}`);
+    const params = new URLSearchParams();
+    params.append('text', value);
+    const resp = await fetch('/api/generate', {
+      method: 'POST',
+      body: params
+    });
     const { result } = await resp.json();
     setTextGenerated(result);
     setIsLoading(false);
