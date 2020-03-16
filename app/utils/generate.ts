@@ -42,8 +42,8 @@ type Props = {
 
 const generate = async ({
   text,
-  length = 500,
-  temperature = 0.1
+  length = 800,
+  temperature = 0.07
 }: Props): Promise<string> => {
   const textData = getTextData();
   const model = await loadModel();
@@ -54,7 +54,11 @@ const generate = async ({
     length,
     temperature
   );
-  return generatedText;
+  const period = generatedText.lastIndexOf('.');
+  const exclamation = generatedText.lastIndexOf('!');
+  const question = generatedText.lastIndexOf('?');
+  const ending = Math.max(period, exclamation, question);
+  return generatedText.substring(0, ending + 1);
 };
 
 export default generate;
