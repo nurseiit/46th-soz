@@ -20,17 +20,15 @@ const Header = (): JSX.Element => {
             <a href="/">Abai&apos;s 46th søz</a>
           </Link>
         </Heading>
-        <Heading size="sm" style={{ fontWeight: 300, paddingTop: '5px' }}>
+        <Heading size="md" style={{ fontWeight: 300, paddingTop: '5px' }}>
           by{' '}
-          <Link href="/about">
-            <ChLink
-              href="/about"
-              style={{ fontWeight: 400, textDecoration: 'underline' }}
-              color="teal.500"
-            >
-              AI.
-            </ChLink>
-          </Link>
+          <ChLink
+            href="https://github.com/nurseiit/46th-soz"
+            style={{ fontWeight: 400, textDecoration: 'underline' }}
+            color="teal.500"
+          >
+            AI.
+          </ChLink>
         </Heading>
       </Box>
       <DarkMode>
@@ -75,7 +73,7 @@ const Footer = (): JSX.Element => (
       <ChLink
         style={{ fontWeight: 400, textDecoration: 'underline' }}
         color="teal.500"
-        href="https://github.com/nurseiit/46th-soz"
+        href="https://github.com/nurseiit/46th-soz/blob/master/app/pages/index.tsx"
       >
         edit this page
       </ChLink>
