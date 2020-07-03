@@ -1,17 +1,8 @@
 import React from 'react';
-import {
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  useColorMode,
-  Link as ChLink,
-  DarkMode
-} from '@chakra-ui/core';
+import { Box, Flex, Heading, Link as ChLink } from '@chakra-ui/core';
 import Link from 'next/link';
 
 const Header = (): JSX.Element => {
-  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Flex align="center" justify="space-between" my="30px">
       <Box>
@@ -31,13 +22,6 @@ const Header = (): JSX.Element => {
           </ChLink>
         </Heading>
       </Box>
-      <DarkMode>
-        <IconButton
-          aria-label="Toggle color mode"
-          icon={colorMode === 'light' ? 'moon' : 'sun'}
-          onClick={toggleColorMode}
-        />
-      </DarkMode>
     </Flex>
   );
 };

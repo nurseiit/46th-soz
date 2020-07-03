@@ -25,7 +25,7 @@ const Result = ({ text }: Props): JSX.Element => (
     >
       Result
     </Heading>
-    <Text color="gray.400" style={{ textAlign: 'justify' }}>
+    <Text color="gray.800" style={{ textAlign: 'justify' }}>
       &nbsp;&nbsp;&nbsp;&nbsp;
       {text}
     </Text>
@@ -50,8 +50,9 @@ const HowItWorks = (): JSX.Element => {
       <Collapse mt={4} isOpen={show}>
         After collecting all Abai&apos;s words (from 1 to 45), we make a
         computer &quot;learn&quot; by randomly building a similarly structured
-        text. Then we adjust the computer model&apos;s values by comparing it to
-        the original words. [Needs more details.]
+        text. We adjust the computer model&apos;s values by comparing it to the
+        original words and repeat that process multiple times. [Needs more
+        details]
       </Collapse>
     </>
   );
